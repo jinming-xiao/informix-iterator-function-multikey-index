@@ -2,7 +2,7 @@
 
 multi-key (iterator) function index in 14.10 is a framework to build index on iterator udr function, users can use index scan to query collections data types’ elements and JSON/BSON array.
 
-<h3>example to show how this feature works</h3>
+<h3>how this feature works</h3>
 <b>1) create table with a set collumn</b>
 <pre>
 CREATE TABLE test(city char(16), zipcode set(varchar(255) not null));
@@ -13,7 +13,7 @@ insert into test values ("Lenexa", set{ "66214", "66229"});
 insert into test values ("Olathe", set{ "66051", "66061"});
 insert into test values ("Shawnee", set{ "66201", "66202", "66203"});
 </pre>
-<b>2) create an iterator functions to access a set</b>
+<b>2) create an iterator functions to access elements in a set</b>
 <pre>
 CREATE FUNCTION informix.any1(s set(varchar(255) not null))
         RETURNS char(5) with (not variant);
