@@ -2,7 +2,7 @@
 
 multi-key (iterator) function index in 14.10 is a framework to build index on iterator udr function, users can use index scan to query collections data types’ elements and JSON/BSON array.
 
-<h3>how this feature works</h3>
+<h3>How this feature works</h3>
 <b>1) create table with a set collumn</b>
 <pre>
 CREATE TABLE test(city char(16), zipcode set(varchar(255) not null));
