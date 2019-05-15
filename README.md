@@ -3,7 +3,7 @@
 multi-key (iterator) function index in 14.10 is a framework to build index on iterator udr function, users can use index scan to query collections data types’ elements and JSON/BSON array.
 
 <h3>How this feature works</h3>
-<b>1) create table with a set collumn</b>
+<b>1) create table with collection data type</b>
 <pre>
 CREATE TABLE test(city char(16), zipcode set(varchar(255) not null));
 
@@ -13,7 +13,7 @@ insert into test values ("Lenexa", set{ "66214", "66229"});
 insert into test values ("Olathe", set{ "66051", "66061"});
 insert into test values ("Shawnee", set{ "66201", "66202", "66203"});
 </pre>
-<b>2) create an iterator functions to access elements in a set</b>
+<b>2) create an iterator functions to access elements in the collection type</b>
 <pre>
 CREATE FUNCTION informix.any1(s set(varchar(255) not null))
         RETURNS char(5) with (not variant);
@@ -24,13 +24,13 @@ CREATE FUNCTION informix.any1(s set(varchar(255) not null))
   END FOREACH ;
 END FUNCTION;
 </pre>
-<b>3) create function index on collection data type</b>
+<b>3) create function index on collection type</b>
 
 <pre>
 CREATE INDEX zipx on test(any1(zipcode));
 </pre>
 
-<b>4) query collection type elements</b> 
+<b>4) query elements in the collection</b> 
 <pre>
 select * from test where any1(zipcode) = '66214’;
 	city     Overland Park
@@ -54,7 +54,8 @@ Estimated # of Rows Returned: 1
   -------------------------------------------------------------------
   scan     t1     2          1         2          00:00.00   1
 
-without this feature, sequential scan is used
+without this feature, sequential scan is applied
+
 select * from test where '66214' in zipcode
 Estimated Cost: 2
 Estimated # of Rows Returned: 1
