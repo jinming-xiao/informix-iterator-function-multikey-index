@@ -1,4 +1,4 @@
-<h>informix multi-key (iterator) function index</h>
+<h1>informix multi-key (iterator) function index</h1>
 
 multi-key (iterator) function index in 14.10 is a framework to build index on iterator udr function, users can use index scan to query collections data types’ elements and JSON/BSON array.
 
@@ -24,11 +24,13 @@ CREATE FUNCTION informix.any1(s set(varchar(255) not null))
   END FOREACH ;
 END FUNCTION;
 </pre>
-3) create function index on SET collumn
+<b>3) create function index on collection data type</b>
+
 <pre>
 CREATE INDEX zipx on test(any1(zipcode));
 </pre>
-4) query collection type elements 
+
+<b>4) query collection type elements</b> 
 <pre>
 select * from test where any1(zipcode) = '66214’;
 	city     Overland Park
@@ -101,7 +103,7 @@ bson_mvalue_double(informix.bson, informix.lvarchar)
 bson_mvalue_date(informix.bson, informix.lvarchar)
 </pre>
 
-<b>exampl to create index on BSON array </b>
+<b>example to create index on BSON array </b>
 <pre>
 create table tab (id int, parking bson);
 create index idx on tab(bson_mvalue_varchar(parking, ”cars"));
